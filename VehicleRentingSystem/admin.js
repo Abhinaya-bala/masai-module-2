@@ -4,6 +4,8 @@ import Invoice from "./scripts/invoice.js"
 
 let vehicles = [] //for storing list of vehicles
 
+let customers = []
+
 $("#createVehicleLaunch").click(function () {
     $("#createVehicleModal").modal("show") // to show modal
 })
@@ -43,6 +45,21 @@ function init() {
         vehicles = JSON.parse(temp)
         printVehicle()
     }
+    temp = localStorage.getItem("customers") // print the already present content in local storage
+    if (temp) {
+        customers = JSON.parse(temp)
+        printCustomers()
+    }
+
+
 }
 
 init()
+
+
+function printCustomers() {
+    customers.forEach(customer => {
+        $("#customersList").append(`<tr><td>${customer.name}</td><td>${customer.email}</td><td>${customer.phoneNo}</td></tr>`)
+    });
+
+}

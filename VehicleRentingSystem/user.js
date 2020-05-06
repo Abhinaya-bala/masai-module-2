@@ -4,6 +4,8 @@ import Invoice from "./scripts/invoice.js"
 
 let customers = []
 
+let vehicles = []
+
 
 $("#showVehicle").click(function () {
     let location = $("#selectLocation").val()
@@ -38,11 +40,23 @@ function init() {
 
 init()
 
-$(document).on('click', '.bookbtn', function () {
+$(document).on('click', '.bookbtn', function () { // modal show
     console.log("book modal")
 
     $("#createCustomerModal").modal("show")
 
+
+});
+
+
+
+
+function updateLocalStorage() {
+    localStorage.setItem("customers", JSON.stringify(customers)) // vehicles array into local storage
+}
+
+
+$("#createCustomerbtn").click(function () {
     let name = $("#name").val()
     let email = $("#email").val()
     let phoneNo = $("#phoneNo").val()
@@ -52,22 +66,8 @@ $(document).on('click', '.bookbtn', function () {
     let customer = new Customer(name, email, phoneNo) // creating new obj with exported constructor
 
     customers.push(customer)
-    printCustomer() // to print 
+
     updateLocalStorage() // update local storage
     $("#createCustomerModal").modal("hide") // to hide modal after print
 
-});
-
-
-
-function printCustomer() {
-    vehicles.forEach(vehicle => {
-        $("#vehicleList").append(`<tr><td>${vehicle.type}</td><td>${vehicle.number}</td><td>${vehicle.model}</td><td>${vehicle.location}</td><td>${vehicle.status}</td></tr>`)
-    });
-
-}
-
-function updateLocalStorage() {
-    localStorage.setItem("vehicles", JSON.stringify(vehicles)) // vehicles array into local storage
-}
-
+})
